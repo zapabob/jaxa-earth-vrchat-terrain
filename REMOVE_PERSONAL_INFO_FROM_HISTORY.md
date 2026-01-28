@@ -29,11 +29,12 @@ git filter-repo --path analyze_ueda_temperature.py --invert-paths
 git filter-repo --path get_ueda_temperature_analysis.py --invert-paths
 git filter-repo --path get_ueda_temperature_mcp.py --invert-paths
 
-# または、特定の文字列を置換
-git filter-repo --replace-text <(echo "36.38916397==>0.0")
-git filter-repo --replace-text <(echo "36.392==>0.0")
-git filter-repo --replace-text <(echo "138.23623657==>0.0")
-git filter-repo --replace-text <(echo "138.258==>0.0")
+# または、特定の文字列を置換（例）
+# 実際の座標値や個人情報に置き換えてください
+git filter-repo --replace-text <(echo "LATITUDE_VALUE_1==>0.0")
+git filter-repo --replace-text <(echo "LATITUDE_VALUE_2==>0.0")
+git filter-repo --replace-text <(echo "LONGITUDE_VALUE_1==>0.0")
+git filter-repo --replace-text <(echo "LONGITUDE_VALUE_2==>0.0")
 ```
 
 ### プッシュ
@@ -52,17 +53,19 @@ git push --force --tags
 
 2. **置換ファイルを作成**
 
-`replacements.txt`を作成:
+`replacements.txt`を作成（例）:
 ```
-36.38916397==>0.0
-36.392==>0.0
-138.23623657==>0.0
-138.258==>0.0
-上田市御所==>Location 1
-上田市常入==>Location 2
-レオパレス柊==>Point 1
-カラオケバンバン上田店==>Point 2
+LATITUDE_VALUE_1==>0.0
+LATITUDE_VALUE_2==>0.0
+LONGITUDE_VALUE_1==>0.0
+LONGITUDE_VALUE_2==>0.0
+LOCATION_NAME_1==>Location 1
+LOCATION_NAME_2==>Location 2
+FACILITY_NAME_1==>Point 1
+FACILITY_NAME_2==>Point 2
 ```
+
+**注意**: 上記は例です。実際の座標値や個人情報に置き換えてください。
 
 3. **BFGを実行**
 
@@ -104,25 +107,24 @@ git push --force origin main
 
 ## 削除対象の文字列
 
-以下の文字列がGit履歴に含まれている可能性があります：
+以下のような文字列がGit履歴に含まれている可能性があります：
 
-- `36.38916397` (座標)
-- `36.392` (座標)
-- `138.23623657` (座標)
-- `138.258` (座標)
-- `上田市御所` (住所)
-- `上田市常入` (住所)
-- `レオパレス柊` (施設名)
-- `カラオケバンバン上田店` (施設名)
+- 座標値（緯度・経度）
+- 住所情報
+- 施設名や個人を特定できる情報
+- その他の個人情報
+
+**注意**: 実際の削除対象は、プロジェクトごとに異なります。上記は一般的な例です。
 
 ## 確認方法
 
 履歴から個人情報が削除されたか確認:
 
 ```bash
-# 特定の文字列を履歴から検索
-git log --all --full-history -S "36.38916397" --source --all
-git log --all --full-history -S "上田市" --source --all
+# 特定の文字列を履歴から検索（例）
+# 実際の座標値や個人情報に置き換えてください
+git log --all --full-history -S "LATITUDE_VALUE" --source --all
+git log --all --full-history -S "LOCATION_NAME" --source --all
 ```
 
 結果が何も返ってこなければ、削除成功です。
