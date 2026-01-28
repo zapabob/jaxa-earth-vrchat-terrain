@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "jaxa_api_tools": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "jaxa-earth-mcp",
+        "run",
+        "--with", "mcp",
+        "--with", "jaxa-earth",
+        "--extra-index-url", "https://data.earth.jaxa.jp/api/python/repository/",
+        "mcp_server.py"
+      ],
+      "env": {}
+    }
+  }
+}

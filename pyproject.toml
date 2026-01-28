@@ -1,0 +1,39 @@
+[project]
+name = "jaxa-earth-vrchat-terrain"
+version = "0.1.0"
+description = "Transform JAXA satellite data into VRChat worlds! Generate 3D terrain from Earth observation data for Blender/Unity/VRChat"
+readme = "README.md"
+requires-python = ">=3.13"
+authors = [
+    {name = "JAXA Earth API MCP Server Contributors"}
+]
+keywords = ["jaxa", "earth-api", "mcp", "satellite-data", "vrchat", "blender", "unity", "terrain-generation"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: GIS",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "mcp>=1.0.0",  # 標準MCP SDK（FastMCPを含む）
+    "requests>=2.31.0",  # 公式v0.1.5で使用
+    "numpy>=1.24.0",
+    "rasterio>=1.3.0",
+    "Pillow>=10.0.0",
+    "scipy>=1.11.0",
+    "jaxa-earth>=0.1.5",
+]
+
+[[tool.uv.index]]
+name = "jaxa-earth"
+url = "https://data.earth.jaxa.jp/api/python/repository/"
+explicit = true
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "black>=23.0.0",
+]

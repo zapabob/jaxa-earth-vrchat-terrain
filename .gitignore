@@ -1,0 +1,59 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+*.pyc
+*.pyo
+*.pyd
+.Python
+build/
+dist/
+wheels/
+*.egg-info
+.eggs/
+
+# Virtual environments
+.venv
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+temp/
+*.log
+*.tmp
+
+# Output files
+*.png
+*.jpg
+*.jpeg
+*.exr
+*.raw
+*.json
+!package.json
+!tsconfig.json
+!.cursor/mcp.json
+!.codex/mcp.json
+!pyproject.toml
+!uv.lock
+
+# Keep example outputs directory structure
+!examples/
+!examples/README.md
+examples/output/
+examples/**/*.png
+examples/**/*.jpg
+examples/**/*.raw
+examples/**/*.exr
+examples/**/*.json
+!examples/**/README.md
