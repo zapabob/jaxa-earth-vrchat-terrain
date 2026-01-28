@@ -424,7 +424,7 @@ wheels = [
 ]
 
 [[package]]
-name = "jaxa-earth-mcp"
+name = "jaxa-earth-vrchat-terrain"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
