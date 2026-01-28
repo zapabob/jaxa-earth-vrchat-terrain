@@ -45,6 +45,41 @@ const translations = {
     'setup-step-3-desc': 'CursorまたはCodex IDEでMCPサーバーを設定します',
     'setup-step-4-title': '動作確認',
     'setup-step-4-desc': 'IDEでMCPサーバーが正しく動作するか確認します',
+    'setup-method-1': '方法1: uvを使用（推奨）',
+    'setup-method-2': '方法2: pipを使用',
+    'setup-cursor-title': 'Cursor IDE設定',
+    'setup-cursor-desc': 'プロジェクトルートに<code>.cursor/mcp.json</code>ファイルが既に作成されています。Cursor IDEを再起動すると、自動的にMCPサーバーが認識されます。',
+    'setup-cursor-manual': '手動設定が必要な場合:',
+    'setup-cursor-note': '注意: <code>C:\\path\\to\\jaxa-earth-vrchat-terrain</code> を実際のプロジェクトパスに置き換えてください。',
+    'setup-codex-title': 'Codex IDE設定',
+    'setup-codex-desc': 'プロジェクトルートに<code>.codex/mcp.json</code>ファイルが既に作成されています。Codex IDEを再起動すると、自動的にMCPサーバーが認識されます。',
+    'setup-codex-manual': '手動設定が必要な場合:',
+    'setup-verify-1': 'IDEを完全に再起動します',
+    'setup-verify-2': 'Agentモードまたはチャット機能を開きます',
+    'setup-verify-3': '以下のコマンドを試してください：',
+    'setup-verify-success': '正常に動作していれば、コレクションの一覧が表示されます。',
+    
+    // Usage
+    'usage-title': '使用例',
+    'usage-basic-title': '基本的な使用例',
+    'usage-vrchat-title': 'VRChat向け使用例',
+    'usage-search-title': 'コレクション検索',
+    'usage-image-title': '画像表示',
+    'usage-heightmap-title': '高度マップ生成',
+    'usage-blender-title': 'Blender用エクスポート',
+    'usage-unity-title': 'Unity用エクスポート',
+    'usage-optimize-title': 'VRChat向け最適化',
+    
+    // Documentation
+    'docs-title': 'ドキュメント',
+    'docs-readme-title': '📖 README',
+    'docs-readme-desc': 'プロジェクトの概要と詳細なドキュメント',
+    'docs-quickstart-title': '🚀 クイックスタート',
+    'docs-quickstart-desc': '5分で始める簡単ガイド',
+    'docs-workflow-title': '🎬 VRChat/Blenderワークフロー',
+    'docs-workflow-desc': '詳細なステップバイステップガイド',
+    'docs-official-title': '📚 JAXA公式ドキュメント',
+    'docs-official-desc': 'JAXA Earth API公式ドキュメント',
     
     // Code blocks
     'code-copy': 'コピー',
@@ -95,6 +130,41 @@ const translations = {
     'setup-step-3-desc': 'Configure MCP server in Cursor or Codex IDE',
     'setup-step-4-title': 'Verify Installation',
     'setup-step-4-desc': 'Verify that the MCP server works correctly in your IDE',
+    'setup-method-1': 'Method 1: Using uv (Recommended)',
+    'setup-method-2': 'Method 2: Using pip',
+    'setup-cursor-title': 'Cursor IDE Configuration',
+    'setup-cursor-desc': 'The <code>.cursor/mcp.json</code> file has already been created in the project root. Restart Cursor IDE and the MCP server will be automatically recognized.',
+    'setup-cursor-manual': 'If manual configuration is needed:',
+    'setup-cursor-note': 'Note: Replace <code>C:\\path\\to\\jaxa-earth-vrchat-terrain</code> with your actual project path.',
+    'setup-codex-title': 'Codex IDE Configuration',
+    'setup-codex-desc': 'The <code>.codex/mcp.json</code> file has already been created in the project root. Restart Codex IDE and the MCP server will be automatically recognized.',
+    'setup-codex-manual': 'If manual configuration is needed:',
+    'setup-verify-1': 'Completely restart your IDE',
+    'setup-verify-2': 'Open Agent mode or chat functionality',
+    'setup-verify-3': 'Try the following command:',
+    'setup-verify-success': 'If it works correctly, a list of collections will be displayed.',
+    
+    // Usage
+    'usage-title': 'Usage Examples',
+    'usage-basic-title': 'Basic Usage Examples',
+    'usage-vrchat-title': 'VRChat Usage Examples',
+    'usage-search-title': 'Collection Search',
+    'usage-image-title': 'Image Display',
+    'usage-heightmap-title': 'Heightmap Generation',
+    'usage-blender-title': 'Blender Export',
+    'usage-unity-title': 'Unity Export',
+    'usage-optimize-title': 'VRChat Optimization',
+    
+    // Documentation
+    'docs-title': 'Documentation',
+    'docs-readme-title': '📖 README',
+    'docs-readme-desc': 'Project overview and detailed documentation',
+    'docs-quickstart-title': '🚀 Quick Start',
+    'docs-quickstart-desc': 'Get started in 5 minutes',
+    'docs-workflow-title': '🎬 VRChat/Blender Workflow',
+    'docs-workflow-desc': 'Detailed step-by-step guide',
+    'docs-official-title': '📚 JAXA Official Documentation',
+    'docs-official-desc': 'JAXA Earth API official documentation',
     
     // Code blocks
     'code-copy': 'Copy',
@@ -144,10 +214,16 @@ function updateLanguage(lang) {
   document.querySelectorAll('[data-i18n]').forEach(element => {
     const key = element.dataset.i18n;
     if (translations[lang] && translations[lang][key]) {
+      const translation = translations[lang][key];
       if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-        element.value = translations[lang][key];
+        element.value = translation;
       } else {
-        element.textContent = translations[lang][key];
+        // Handle <br> tags in translations (replace \n with <br>)
+        if (translation.includes('\n')) {
+          element.innerHTML = translation.replace(/\n/g, '<br>');
+        } else {
+          element.textContent = translation;
+        }
       }
     }
   });

@@ -143,7 +143,7 @@ cd jaxa-earth-vrchat-terrain</code></pre>
           <h3 class="step-title" data-i18n="setup-step-2-title">ステップ2: 依存関係をインストール</h3>
           <p class="step-description" data-i18n="setup-step-2-desc">uvまたはpipを使用して必要なパッケージをインストールします</p>
           
-          <h4 style="margin-top: var(--spacing-lg);">方法1: uvを使用（推奨）</h4>
+          <h4 style="margin-top: var(--spacing-lg);" data-i18n="setup-method-1">方法1: uvを使用（推奨）</h4>
           <div class="code-block">
             <div class="code-block-header">
               <span class="code-block-title">Terminal</span>
@@ -156,7 +156,7 @@ cd jaxa-earth-vrchat-terrain
 uv sync</code></pre>
           </div>
 
-          <h4 style="margin-top: var(--spacing-lg);">方法2: pipを使用</h4>
+          <h4 style="margin-top: var(--spacing-lg);" data-i18n="setup-method-2">方法2: pipを使用</h4>
           <div class="code-block">
             <div class="code-block-header">
               <span class="code-block-title">Terminal</span>
@@ -177,10 +177,10 @@ pip install jaxa-earth --extra-index-url https://data.earth.jaxa.jp/api/python/r
           <h3 class="step-title" data-i18n="setup-step-3-title">ステップ3: IDE設定</h3>
           <p class="step-description" data-i18n="setup-step-3-desc">CursorまたはCodex IDEでMCPサーバーを設定します</p>
 
-          <h4 style="margin-top: var(--spacing-lg);">Cursor IDE設定</h4>
-          <p>プロジェクトルートに<code>.cursor/mcp.json</code>ファイルが既に作成されています。Cursor IDEを再起動すると、自動的にMCPサーバーが認識されます。</p>
+          <h4 style="margin-top: var(--spacing-lg);" data-i18n="setup-cursor-title">Cursor IDE設定</h4>
+          <p data-i18n="setup-cursor-desc">プロジェクトルートに<code>.cursor/mcp.json</code>ファイルが既に作成されています。Cursor IDEを再起動すると、自動的にMCPサーバーが認識されます。</p>
           
-          <p style="margin-top: var(--spacing-md);"><strong>手動設定が必要な場合:</strong></p>
+          <p style="margin-top: var(--spacing-md);"><strong data-i18n="setup-cursor-manual">手動設定が必要な場合:</strong></p>
           <div class="code-block">
             <div class="code-block-header">
               <span class="code-block-title">.cursor/mcp.json</span>
@@ -203,14 +203,14 @@ pip install jaxa-earth --extra-index-url https://data.earth.jaxa.jp/api/python/r
   }
 }</code></pre>
           </div>
-          <p style="margin-top: var(--spacing-sm); font-size: var(--font-size-sm); color: var(--color-text-secondary);">
+          <p style="margin-top: var(--spacing-sm); font-size: var(--font-size-sm); color: var(--color-text-secondary);" data-i18n="setup-cursor-note">
             <strong>注意:</strong> <code>C:\\path\\to\\jaxa-earth-vrchat-terrain</code> を実際のプロジェクトパスに置き換えてください。
           </p>
 
-          <h4 style="margin-top: var(--spacing-xl);">Codex IDE設定</h4>
-          <p>プロジェクトルートに<code>.codex/mcp.json</code>ファイルが既に作成されています。Codex IDEを再起動すると、自動的にMCPサーバーが認識されます。</p>
+          <h4 style="margin-top: var(--spacing-xl);" data-i18n="setup-codex-title">Codex IDE設定</h4>
+          <p data-i18n="setup-codex-desc">プロジェクトルートに<code>.codex/mcp.json</code>ファイルが既に作成されています。Codex IDEを再起動すると、自動的にMCPサーバーが認識されます。</p>
           
-          <p style="margin-top: var(--spacing-md);"><strong>手動設定が必要な場合:</strong></p>
+          <p style="margin-top: var(--spacing-md);"><strong data-i18n="setup-codex-manual">手動設定が必要な場合:</strong></p>
           <div class="code-block">
             <div class="code-block-header">
               <span class="code-block-title">.codex/mcp.json</span>
@@ -243,9 +243,9 @@ pip install jaxa-earth --extra-index-url https://data.earth.jaxa.jp/api/python/r
           <p class="step-description" data-i18n="setup-step-4-desc">IDEでMCPサーバーが正しく動作するか確認します</p>
           
           <ol style="margin-top: var(--spacing-md); padding-left: var(--spacing-lg);">
-            <li style="margin-bottom: var(--spacing-sm);">IDEを完全に再起動します</li>
-            <li style="margin-bottom: var(--spacing-sm);">Agentモードまたはチャット機能を開きます</li>
-            <li style="margin-bottom: var(--spacing-sm);">以下のコマンドを試してください：</li>
+            <li style="margin-bottom: var(--spacing-sm);" data-i18n="setup-verify-1">IDEを完全に再起動します</li>
+            <li style="margin-bottom: var(--spacing-sm);" data-i18n="setup-verify-2">Agentモードまたはチャット機能を開きます</li>
+            <li style="margin-bottom: var(--spacing-sm);" data-i18n="setup-verify-3">以下のコマンドを試してください：</li>
           </ol>
 
           <div class="code-block" style="margin-top: var(--spacing-md);">
@@ -256,7 +256,7 @@ pip install jaxa-earth --extra-index-url https://data.earth.jaxa.jp/api/python/r
             <pre class="code-block-content"><code>利用可能なJAXA Earth APIのコレクションを一覧表示してください</code></pre>
           </div>
 
-          <p style="margin-top: var(--spacing-md);">正常に動作していれば、コレクションの一覧が表示されます。</p>
+          <p style="margin-top: var(--spacing-md);" data-i18n="setup-verify-success">正常に動作していれば、コレクションの一覧が表示されます。</p>
         </div>
       </div>
     </div>
@@ -265,13 +265,13 @@ pip install jaxa-earth --extra-index-url https://data.earth.jaxa.jp/api/python/r
   <!-- Usage Examples Section -->
   <section class="section" id="usage">
     <div class="container">
-      <h2 class="text-center">使用例</h2>
+      <h2 class="text-center" data-i18n="usage-title">使用例</h2>
       
       <div class="card">
-        <h3>基本的な使用例</h3>
+        <h3 data-i18n="usage-basic-title">基本的な使用例</h3>
         <div class="code-block">
           <div class="code-block-header">
-            <span class="code-block-title">コレクション検索</span>
+            <span class="code-block-title" data-i18n="usage-search-title">コレクション検索</span>
             <button class="code-block-copy" data-i18n="code-copy">コピー</button>
           </div>
           <pre class="code-block-content"><code>地表面温度（LST）に関するコレクションを検索してください</code></pre>
@@ -279,7 +279,7 @@ pip install jaxa-earth --extra-index-url https://data.earth.jaxa.jp/api/python/r
 
         <div class="code-block">
           <div class="code-block-header">
-            <span class="code-block-title">画像表示</span>
+            <span class="code-block-title" data-i18n="usage-image-title">画像表示</span>
             <button class="code-block-copy" data-i18n="code-copy">コピー</button>
           </div>
           <pre class="code-block-content"><code>2021年の関東地方の標高データの画像を表示してください</code></pre>
@@ -287,10 +287,10 @@ pip install jaxa-earth --extra-index-url https://data.earth.jaxa.jp/api/python/r
       </div>
 
       <div class="card">
-        <h3>VRChat向け使用例</h3>
+        <h3 data-i18n="usage-vrchat-title">VRChat向け使用例</h3>
         <div class="code-block">
           <div class="code-block-header">
-            <span class="code-block-title">高度マップ生成</span>
+            <span class="code-block-title" data-i18n="usage-heightmap-title">高度マップ生成</span>
             <button class="code-block-copy" data-i18n="code-copy">コピー</button>
           </div>
           <pre class="code-block-content"><code>富士山周辺（経度138.5-139度、緯度35.2-35.5度）の高度マップを生成してください</code></pre>
@@ -298,7 +298,7 @@ pip install jaxa-earth --extra-index-url https://data.earth.jaxa.jp/api/python/r
 
         <div class="code-block">
           <div class="code-block-header">
-            <span class="code-block-title">Blender用エクスポート</span>
+            <span class="code-block-title" data-i18n="usage-blender-title">Blender用エクスポート</span>
             <button class="code-block-copy" data-i18n="code-copy">コピー</button>
           </div>
           <pre class="code-block-content"><code>富士山周辺の地形データをBlender用にエクスポートしてください</code></pre>
@@ -306,7 +306,7 @@ pip install jaxa-earth --extra-index-url https://data.earth.jaxa.jp/api/python/r
 
         <div class="code-block">
           <div class="code-block-header">
-            <span class="code-block-title">Unity用エクスポート</span>
+            <span class="code-block-title" data-i18n="usage-unity-title">Unity用エクスポート</span>
             <button class="code-block-copy" data-i18n="code-copy">コピー</button>
           </div>
           <pre class="code-block-content"><code>富士山周辺の地形データをUnity用にエクスポートしてください</code></pre>
@@ -314,7 +314,7 @@ pip install jaxa-earth --extra-index-url https://data.earth.jaxa.jp/api/python/r
 
         <div class="code-block">
           <div class="code-block-header">
-            <span class="code-block-title">VRChat向け最適化</span>
+            <span class="code-block-title" data-i18n="usage-optimize-title">VRChat向け最適化</span>
             <button class="code-block-copy" data-i18n="code-copy">コピー</button>
           </div>
           <pre class="code-block-content"><code>富士山周辺の地形データをVRChat向けに最適化してエクスポートしてください。
@@ -327,23 +327,23 @@ pip install jaxa-earth --extra-index-url https://data.earth.jaxa.jp/api/python/r
   <!-- Documentation Links -->
   <section class="section">
     <div class="container">
-      <h2 class="text-center">ドキュメント</h2>
+      <h2 class="text-center" data-i18n="docs-title">ドキュメント</h2>
       <div class="features-grid">
         <a href="https://github.com/zapabob/jaxa-earth-vrchat-terrain/blob/main/README.md" class="feature-card" style="text-decoration: none; color: inherit;">
-          <h3 class="feature-title">📖 README</h3>
-          <p class="feature-description">プロジェクトの概要と詳細なドキュメント</p>
+          <h3 class="feature-title" data-i18n="docs-readme-title">📖 README</h3>
+          <p class="feature-description" data-i18n="docs-readme-desc">プロジェクトの概要と詳細なドキュメント</p>
         </a>
         <a href="https://github.com/zapabob/jaxa-earth-vrchat-terrain/blob/main/QUICKSTART.md" class="feature-card" style="text-decoration: none; color: inherit;">
-          <h3 class="feature-title">🚀 クイックスタート</h3>
-          <p class="feature-description">5分で始める簡単ガイド</p>
+          <h3 class="feature-title" data-i18n="docs-quickstart-title">🚀 クイックスタート</h3>
+          <p class="feature-description" data-i18n="docs-quickstart-desc">5分で始める簡単ガイド</p>
         </a>
         <a href="https://github.com/zapabob/jaxa-earth-vrchat-terrain/blob/main/WORKFLOW_VRCHAT_BLENDER.md" class="feature-card" style="text-decoration: none; color: inherit;">
-          <h3 class="feature-title">🎬 VRChat/Blenderワークフロー</h3>
-          <p class="feature-description">詳細なステップバイステップガイド</p>
+          <h3 class="feature-title" data-i18n="docs-workflow-title">🎬 VRChat/Blenderワークフロー</h3>
+          <p class="feature-description" data-i18n="docs-workflow-desc">詳細なステップバイステップガイド</p>
         </a>
         <a href="https://data.earth.jaxa.jp/api/python/v0.1.5/en/" class="feature-card" style="text-decoration: none; color: inherit;">
-          <h3 class="feature-title">📚 JAXA公式ドキュメント</h3>
-          <p class="feature-description">JAXA Earth API公式ドキュメント</p>
+          <h3 class="feature-title" data-i18n="docs-official-title">📚 JAXA公式ドキュメント</h3>
+          <p class="feature-description" data-i18n="docs-official-desc">JAXA Earth API公式ドキュメント</p>
         </a>
       </div>
     </div>
