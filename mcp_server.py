@@ -310,7 +310,7 @@ async def show_spatial_stats(
     band: str = "DSM",
     dlim: List[str] = ["2021-01-01T00:00:00", "2021-01-01T00:00:00"],
     bbox: List[float] = [135.0, 37.5, 140.0, 42.5],
-) -> List[Image]:
+) -> Any:  # Returns List[Image], but using Any to avoid Pydantic schema error
     """
     ユーザー入力に基づいてJAXA Earth APIを使用して衛星データの空間統計結果画像を表示します。
     
