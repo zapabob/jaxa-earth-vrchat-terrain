@@ -134,7 +134,7 @@ async def show_images(
     band: str = "DSM",
     dlim: List[str] = ["2021-01-01T00:00:00", "2021-01-01T00:00:00"],
     bbox: List[float] = [135.0, 37.5, 140.0, 42.5],
-) -> List[Image]:
+) -> Any:  # Returns List[Image], but using Any to avoid Pydantic schema error
     """
     ユーザー入力に基づいてJAXA Earth APIを使用して衛星画像を表示します。
     
@@ -913,6 +913,250 @@ def _generate_normal_map(height_data: np.ndarray) -> np.ndarray:
     ], axis=-1)
     
     return normal_map
+
+
+# ============================================================================
+# Plan Mode Tools
+# ============================================================================
+
+# Plan storage directory
+PLAN_DIR = Path("./_docs/plans")
+PLAN_DIR.mkdir(parents=True, exist_ok=True)
+
+@mcp.tool()
+def create_plan(
+    task_description: str,
+    objectives: List[str],
+    steps: List[Dict[str, Any]],
+    estimated_time: Optional[str] = None
+) -> Dict[str, Any]:
+    """
+    複雑なタスクの実装計画を作成します。
+    
+    Args:
+        task_description: タスクの説明
+        objectives: 目標のリスト
+        steps: ステップのリスト（各ステップは辞書形式で、description, files, dependencies, riskを含む）
+        estimated_time: 推定時間（オプション）
+    
+    Returns:
+        作成された計画の情報
+    """
+    try:
+        from datetime import datetime
+        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        plan_id = f"plan_{timestamp}"
+        
+        plan_data = {
+            "id": plan_id,
+            "task_description": task_description,
+            "objectives": objectives,
+            "steps": steps,
+            "estimated_time": estimated_time,
+            "status": "created",
+            "created_at": timestamp,
+            "completed_steps": [],
+            "current_step": None
+        }
+        
+        # Save plan to file
+        plan_file = PLAN_DIR / f"{plan_id}.json"
+        with open(plan_file, 'w', encoding='utf-8') as f:
+            json.dump(plan_data, f, ensure_ascii=False, indent=2)
+        
+        # Generate markdown plan
+        markdown_plan = _generate_markdown_plan(plan_data)
+        plan_md_file = PLAN_DIR / f"{plan_id}.md"
+        with open(plan_md_file, 'w', encoding='utf-8') as f:
+            f.write(markdown_plan)
+        
+        return {
+            "plan_id": plan_id,
+            "status": "created",
+            "plan_file": str(plan_file),
+            "markdown_file": str(plan_md_file),
+            "total_steps": len(steps),
+            "message": f"Plan created successfully with {len(steps)} steps"
+        }
+    except Exception as e:
+        return {
+            "error": str(e),
+            "traceback": traceback.format_exc()
+        }
+
+@mcp.tool()
+def update_plan_status(
+    plan_id: str,
+    step_index: int,
+    status: str,
+    notes: Optional[str] = None
+) -> Dict[str, Any]:
+    """
+    計画のステップのステータスを更新します。
+    
+    Args:
+        plan_id: 計画ID
+        step_index: ステップのインデックス（0から開始）
+        status: ステータス（"pending", "in_progress", "completed", "failed"）
+        notes: 追加のメモ（オプション）
+    
+    Returns:
+        更新結果
+    """
+    try:
+        plan_file = PLAN_DIR / f"{plan_id}.json"
+        if not plan_file.exists():
+            return {"error": f"Plan {plan_id} not found"}
+        
+        with open(plan_file, 'r', encoding='utf-8') as f:
+            plan_data = json.load(f)
+        
+        if step_index < 0 or step_index >= len(plan_data["steps"]):
+            return {"error": f"Invalid step index: {step_index}"}
+        
+        # Update step status
+        plan_data["steps"][step_index]["status"] = status
+        if notes:
+            plan_data["steps"][step_index]["notes"] = notes
+        
+        # Update completed steps
+        if status == "completed" and step_index not in plan_data["completed_steps"]:
+            plan_data["completed_steps"].append(step_index)
+        elif status != "completed" and step_index in plan_data["completed_steps"]:
+            plan_data["completed_steps"].remove(step_index)
+        
+        # Update current step
+        if status == "in_progress":
+            plan_data["current_step"] = step_index
+        elif status == "completed" and plan_data["current_step"] == step_index:
+            plan_data["current_step"] = None
+        
+        # Update overall status
+        total_steps = len(plan_data["steps"])
+        completed_count = len(plan_data["completed_steps"])
+        if completed_count == total_steps:
+            plan_data["status"] = "completed"
+        elif completed_count > 0 or any(s.get("status") == "in_progress" for s in plan_data["steps"]):
+            plan_data["status"] = "in_progress"
+        
+        # Save updated plan
+        with open(plan_file, 'w', encoding='utf-8') as f:
+            json.dump(plan_data, f, ensure_ascii=False, indent=2)
+        
+        # Update markdown file
+        markdown_plan = _generate_markdown_plan(plan_data)
+        plan_md_file = PLAN_DIR / f"{plan_id}.md"
+        with open(plan_md_file, 'w', encoding='utf-8') as f:
+            f.write(markdown_plan)
+        
+        return {
+            "plan_id": plan_id,
+            "step_index": step_index,
+            "status": status,
+            "progress": f"{completed_count}/{total_steps} steps completed ({completed_count*100//total_steps}%)",
+            "overall_status": plan_data["status"]
+        }
+    except Exception as e:
+        return {
+            "error": str(e),
+            "traceback": traceback.format_exc()
+        }
+
+@mcp.tool()
+def get_plan_status(plan_id: str) -> Dict[str, Any]:
+    """
+    計画の現在のステータスを取得します。
+    
+    Args:
+        plan_id: 計画ID
+    
+    Returns:
+        計画のステータス情報
+    """
+    try:
+        plan_file = PLAN_DIR / f"{plan_id}.json"
+        if not plan_file.exists():
+            return {"error": f"Plan {plan_id} not found"}
+        
+        with open(plan_file, 'r', encoding='utf-8') as f:
+            plan_data = json.load(f)
+        
+        total_steps = len(plan_data["steps"])
+        completed_count = len(plan_data["completed_steps"])
+        
+        return {
+            "plan_id": plan_id,
+            "task_description": plan_data["task_description"],
+            "status": plan_data["status"],
+            "progress": f"{completed_count}/{total_steps} steps completed",
+            "percentage": completed_count * 100 // total_steps if total_steps > 0 else 0,
+            "current_step": plan_data["current_step"],
+            "steps": [
+                {
+                    "index": i,
+                    "description": step.get("description", ""),
+                    "status": step.get("status", "pending"),
+                    "files": step.get("files", [])
+                }
+                for i, step in enumerate(plan_data["steps"])
+            ]
+        }
+    except Exception as e:
+        return {
+            "error": str(e),
+            "traceback": traceback.format_exc()
+        }
+
+def _generate_markdown_plan(plan_data: Dict[str, Any]) -> str:
+    """計画データからMarkdown形式の計画書を生成"""
+    md = f"# Implementation Plan: {plan_data['task_description']}\n\n"
+    md += f"**Plan ID**: `{plan_data['id']}`\n"
+    md += f"**Created**: {plan_data['created_at']}\n"
+    md += f"**Status**: {plan_data['status']}\n\n"
+    
+    if plan_data.get('estimated_time'):
+        md += f"**Estimated Time**: {plan_data['estimated_time']}\n\n"
+    
+    md += "## Overview\n\n"
+    md += f"{plan_data['task_description']}\n\n"
+    
+    md += "## Objectives\n\n"
+    for obj in plan_data['objectives']:
+        md += f"- {obj}\n"
+    md += "\n"
+    
+    md += "## Execution Plan\n\n"
+    for i, step in enumerate(plan_data['steps']):
+        status_icon = {
+            "pending": "⏳",
+            "in_progress": "🔄",
+            "completed": "✅",
+            "failed": "❌"
+        }.get(step.get("status", "pending"), "⏳")
+        
+        md += f"### Step {i+1}: {step.get('description', 'N/A')}\n"
+        md += f"**Status**: {status_icon} {step.get('status', 'pending')}\n\n"
+        
+        if step.get('files'):
+            md += f"**Files**: {', '.join(f'`{f}`' for f in step['files'])}\n\n"
+        
+        if step.get('dependencies'):
+            md += f"**Dependencies**: {', '.join(step['dependencies'])}\n\n"
+        
+        if step.get('risk'):
+            md += f"**Risk**: {step['risk']}\n\n"
+        
+        if step.get('notes'):
+            md += f"**Notes**: {step['notes']}\n\n"
+        
+        md += "---\n\n"
+    
+    total_steps = len(plan_data['steps'])
+    completed_count = len(plan_data['completed_steps'])
+    md += f"## Progress\n\n"
+    md += f"**Completed**: {completed_count}/{total_steps} steps ({completed_count*100//total_steps if total_steps > 0 else 0}%)\n\n"
+    
+    return md
 
 
 # ============================================================================
