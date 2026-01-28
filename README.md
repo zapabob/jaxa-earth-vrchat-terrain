@@ -3,10 +3,13 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.13+](https://img.shields.io/badge/python-3.13+-blue.svg)](https://www.python.org/downloads/)
 [![MCP Server](https://img.shields.io/badge/MCP-Server-green.svg)](https://modelcontextprotocol.io/)
+[![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-blue.svg)](https://zapabob.github.io/jaxa-earth-vrchat-terrain/)
 
 **JAXAの衛星データからVRChatワールドの地形を自動生成！** 🚀
 
 JAXA Earth APIの地球観測データを、**Blender/Unity/VRChat**で使える3D地形に変換するMCPサーバーです。**Cursor IDE**と**Codex IDE**から自然言語で操作でき、リアルな地球の地形をVRChatワールドに取り込めます。
+
+📖 **[詳細なセットアップガイド（GitHub Pages）](https://zapabob.github.io/jaxa-earth-vrchat-terrain/)** - Apple風デザインの日英併記ドキュメント
 
 ## ✨ 何ができる？
 
