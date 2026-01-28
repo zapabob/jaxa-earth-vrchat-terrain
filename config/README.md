@@ -12,14 +12,14 @@
 ```json
 {
   "point1": {
-    "lat": 36.38916397,
-    "lon": 138.23623657,
-    "description": "First point"
+    "lat": 0.0,
+    "lon": 0.0,
+    "description": "First point coordinates"
   },
   "point2": {
-    "lat": 36.392,
-    "lon": 138.258,
-    "description": "Second point"
+    "lat": 0.0,
+    "lon": 0.0,
+    "description": "Second point coordinates"
   }
 }
 ```
@@ -29,10 +29,10 @@
 環境変数でも設定できます：
 
 ```bash
-export POINT1_LAT=36.38916397
-export POINT1_LON=138.23623657
-export POINT2_LAT=36.392
-export POINT2_LON=138.258
+export POINT1_LAT=0.0
+export POINT1_LON=0.0
+export POINT2_LAT=0.0
+export POINT2_LON=0.0
 ```
 
 ### 注意
