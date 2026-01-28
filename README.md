@@ -28,8 +28,8 @@ JAXA Earth APIの地球観測データを、**Blender/Unity/VRChat**で使える
 ### 1. インストール（1分）
 
 ```bash
-# リポジトリをクローン（YOUR_USERNAMEを実際のGitHubユーザー名に置き換え）
-git clone https://github.com/YOUR_USERNAME/jaxa-earth-vrchat-terrain.git
+# リポジトリをクローン（zapabobを実際のGitHubユーザー名に置き換え）
+git clone https://github.com/zapabob/jaxa-earth-vrchat-terrain.git
 cd jaxa-earth-vrchat-terrain
 
 # 依存関係をインストール
@@ -83,8 +83,8 @@ IDEで以下のように話しかけるだけ：
 ### セットアップ
 
 ```bash
-# リポジトリをクローン（YOUR_USERNAMEを実際のGitHubユーザー名に置き換え）
-git clone https://github.com/YOUR_USERNAME/jaxa-earth-vrchat-terrain.git
+# リポジトリをクローン（zapabobを実際のGitHubユーザー名に置き換え）
+git clone https://github.com/zapabob/jaxa-earth-vrchat-terrain.git
 cd jaxa-earth-vrchat-terrain
 
 # 依存関係をインストール
@@ -352,7 +352,7 @@ JAXA Earth APIから以下のようなデータを取得できます：
 
 Made with ❤️ for VRChat creators and 3D artists
 
-[![GitHub stars](https://img.shields.io/github/stars/YOUR_USERNAME/jaxa-earth-vrchat-terrain?style=social)](https://github.com/YOUR_USERNAME/jaxa-earth-vrchat-terrain)
-[![GitHub forks](https://img.shields.io/github/forks/YOUR_USERNAME/jaxa-earth-vrchat-terrain?style=social)](https://github.com/YOUR_USERNAME/jaxa-earth-vrchat-terrain)
+[![GitHub stars](https://img.shields.io/github/stars/zapabob/jaxa-earth-vrchat-terrain?style=social)](https://github.com/zapabob/jaxa-earth-vrchat-terrain)
+[![GitHub forks](https://img.shields.io/github/forks/zapabob/jaxa-earth-vrchat-terrain?style=social)](https://github.com/zapabob/jaxa-earth-vrchat-terrain)
 
 </div>
