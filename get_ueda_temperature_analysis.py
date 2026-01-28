@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 """
-長野県上田市の気温分布分析（MCPサーバー経由でデータ取得）
+気温分布分析スクリプト（MCPサーバー経由でデータ取得）
+座標は環境変数または設定ファイルから読み込みます
 """
 
 import json
 import sys
 import math
+import os
 from pathlib import Path
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
@@ -22,11 +24,38 @@ except ImportError as e:
     print(f"Error importing jaxa-earth: {e}", file=sys.stderr)
     sys.exit(1)
 
-# 位置情報
-LEOPALACE_LAT = 36.38916397
-LEOPALACE_LON = 138.23623657
-KARAOKE_LAT = 36.392
-KARAOKE_LON = 138.258
+# 位置情報（環境変数または設定ファイルから読み込み）
+def get_coordinates() -> tuple[float, float, float, float]:
+    """
+    座標を環境変数または設定ファイルから取得
+    
+    Returns:
+        (lat1, lon1, lat2, lon2) タプル
+    """
+    # 環境変数から取得を試みる
+    lat1 = os.getenv('POINT1_LAT')
+    lon1 = os.getenv('POINT1_LON')
+    lat2 = os.getenv('POINT2_LAT')
+    lon2 = os.getenv('POINT2_LON')
+    
+    if all([lat1, lon1, lat2, lon2]):
+        return float(lat1), float(lon1), float(lat2), float(lon2)
+    
+    # 設定ファイルから取得を試みる
+    config_file = Path("config/coordinates.json")
+    if config_file.exists():
+        with open(config_file, 'r', encoding='utf-8') as f:
+            config = json.load(f)
+            return (
+                config.get('point1', {}).get('lat', 0),
+                config.get('point1', {}).get('lon', 0),
+                config.get('point2', {}).get('lat', 0),
+                config.get('point2', {}).get('lon', 0)
+            )
+    
+    # デフォルト値（例として、実際の使用時は環境変数または設定ファイルを使用）
+    print("警告: 座標が設定されていません。環境変数またはconfig/coordinates.jsonを設定してください。", file=sys.stderr)
+    return 0.0, 0.0, 0.0, 0.0
 
 # 2024年夏の期間
 SUMMER_2024_START = "2024-06-01T00:00:00"
@@ -301,18 +330,22 @@ def create_heightmap(temperature_data: np.ndarray, output_dir: Path):
 def main():
     """メイン処理"""
     print("=" * 60)
-    print("長野県上田市 気温分布分析")
+    print("気温分布分析")
     print("=" * 60)
     
-    output_dir = Path("./output/ueda_temperature")
+    # 座標を取得
+    lat1, lon1, lat2, lon2 = get_coordinates()
+    if lat1 == 0 and lon1 == 0 and lat2 == 0 and lon2 == 0:
+        print("エラー: 座標が設定されていません。", file=sys.stderr)
+        print("環境変数を設定するか、config/coordinates.jsonファイルを作成してください。", file=sys.stderr)
+        sys.exit(1)
+    
+    output_dir = Path("./output/temperature_analysis")
     output_dir.mkdir(parents=True, exist_ok=True)
     
     # 1. バウンディングボックスを計算
     print("\n[1/6] バウンディングボックスを計算中...")
-    bbox = calculate_bounding_box(
-        LEOPALACE_LAT, LEOPALACE_LON,
-        KARAOKE_LAT, KARAOKE_LON
-    )
+    bbox = calculate_bounding_box(lat1, lon1, lat2, lon2)
     print(f"バウンディングボックス: {bbox}")
     print(f"  経度範囲: {bbox[0]:.6f} - {bbox[2]:.6f}")
     print(f"  緯度範囲: {bbox[1]:.6f} - {bbox[3]:.6f}")

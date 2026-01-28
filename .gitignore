@@ -33,6 +33,10 @@ temp/
 *.log
 *.tmp
 
+# Configuration files with personal information
+config/coordinates.json
+*.local.json
+
 # Output files
 *.png
 *.jpg
@@ -57,6 +61,7 @@ examples/**/*.raw
 examples/**/*.exr
 examples/**/*.json
 !examples/**/README.md
-analyze_ueda_temperature.py
-get_ueda_temperature_mcp.py
-get_ueda_temperature_analysis.py
+# Temperature analysis scripts (keep for reference)
+# analyze_ueda_temperature.py
+# get_ueda_temperature_mcp.py
+# get_ueda_temperature_analysis.py

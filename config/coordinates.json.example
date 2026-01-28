@@ -1,0 +1,12 @@
+{
+  "point1": {
+    "lat": 0.0,
+    "lon": 0.0,
+    "description": "First point coordinates"
+  },
+  "point2": {
+    "lat": 0.0,
+    "lon": 0.0,
+    "description": "Second point coordinates"
+  }
+}
