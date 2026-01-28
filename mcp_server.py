@@ -518,7 +518,7 @@ def generate_heightmap(
         
         # PNG形式で保存（16bitグレースケール）
         height_uint16 = (height_normalized * 65535).astype(np.uint16)
-        height_image = Image.fromarray(height_uint16, mode='I;16')
+        height_image = PILImage.fromarray(height_uint16, mode='I;16')
         height_image.save(output_path)
         
         return {

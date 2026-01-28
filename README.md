@@ -11,6 +11,8 @@ JAXA Earth APIの地球観測データを、**Blender/Unity/VRChat**で使える
 
 📖 **[詳細なセットアップガイド（GitHub Pages）](https://zapabob.github.io/jaxa-earth-vrchat-terrain/)** - Apple風デザインの日英併記ドキュメント
 
+🖥️ **Streamlit UI**: Appleデザインの自然言語インターフェースでMCP機能を実行できます。詳細は[STREAMLIT_README.md](STREAMLIT_README.md)を参照してください。
+
 ## ✨ 何ができる？
 
 - 🛰️ **JAXAの衛星データを取得** - 標高、地表面温度、植生指数など様々なデータにアクセス
