@@ -9,6 +9,17 @@
 
 JAXA Earth APIの地球観測データを、**Blender/Unity/VRChat**で使える3D地形に変換するMCPサーバーです。**Cursor IDE**と**Codex IDE**から自然言語で操作でき、リアルな地球の地形をVRChatワールドに取り込めます。
 
+## AI/Data Engineering Evidence Card
+
+| Field | Current public evidence |
+| --- | --- |
+| Data surface | JAXA Earth API collections for elevation, land-surface temperature, vegetation index, images, and spatial/temporal statistics |
+| Engineering work | MCP server, Streamlit UI, natural-language IDE operation, Blender export, Unity Terrain export, VRChat-oriented optimization |
+| Repro command | `uv sync`, then run the MCP server or Streamlit UI and request a terrain export for a bounded latitude/longitude region |
+| Output artifacts | Height maps, texture maps, Blender-friendly displacement assets, Unity Terrain imports, and VRChat-ready terrain data |
+| Metrics to inspect | Export resolution, polygon budget, texture size, coordinate bounds, and generated terrain file integrity |
+| Limitations | Generated terrain depends on available JAXA datasets, API access, selected resolution, and downstream Unity/VRChat optimization constraints |
+
 📖 **[詳細なセットアップガイド（GitHub Pages）](https://zapabob.github.io/jaxa-earth-vrchat-terrain/)** - Apple風デザインの日英併記ドキュメント
 
 🖥️ **Streamlit UI**: Appleデザインの自然言語インターフェースでMCP機能を実行できます。詳細は[STREAMLIT_README.md](STREAMLIT_README.md)を参照してください。
